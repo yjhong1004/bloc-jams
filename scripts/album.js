@@ -30,7 +30,7 @@ var createSongRow = function(songNumber, songName, songLength) {
        '<tr class="album-view-song-item">'
      + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
      + '  <td class="song-item-title">' + songName + '</td>'
-     + '  <td class="song-item-duration">' + songLength + '</td>'
+     + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
      + '</tr>'
      ;
 
@@ -200,17 +200,24 @@ var trackIndex = function(album, song) {
     return album.songs.indexOf(song);
 };
 var filterTimeCode = function(time) {
-  var minutes = Math.floor(time / 60);
-  var seconds = Math.floor(time - minutes * 60);
-  console.log(minutes + ":" + seconds);
+  var seconds = Math.floor(parseFloat(time));
+  var minutes = Math.floor(seconds / 60);
+  var display = seconds % 60;
+  var finalTime = minutes + ":";
+  if (display < 10) {
+    finalTime += '0' + display;
+  } else {
+    finalTime += display;
+  }
+  return finalTime;
 };
 var setTotalTimeInPlayerBar = function (totalTime) {
-  $('.total-time').text(totalTime);
-  filterTimeCode(totalTime);
+
+  $('.total-time').text(filterTimeCode(totalTime));
 };
 var setCurrentTimeInPlayerBar = function (currentTime){
-  $('.current-time').text(currentTime);
-  filterTimeCode(currentTime);
+  ;
+  $('.current-time').text(filterTimeCode(currentTime));
 }
 
 var updatePlayerBarSong = function() {

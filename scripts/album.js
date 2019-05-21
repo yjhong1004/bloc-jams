@@ -200,10 +200,17 @@ var trackIndex = function(album, song) {
     return album.songs.indexOf(song);
 };
 var filterTimeCode = function(time) {
-  var seconds = Math.floor(parseFloat(time));
-  var minutes = Math.floor(seconds / 60);
+  console.log('this is time', time);
+  var minutes = Math.floor(parseFloat(time));
+  console.log('this is minutes', minutes);
+  var seconds = Number.parseFloat(time);
+  console.log('this is seconds', seconds);
+
+  console.log(minutes + ":" + seconds);
   var display = seconds % 60;
+
   var finalTime = minutes + ":";
+
   if (display < 10) {
     finalTime += '0' + display;
   } else {
